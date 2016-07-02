@@ -15,6 +15,11 @@ ser.onclick = function(){
 					document.getElementById("genre").innerHTML = jsonObj.Genre;
 					document.getElementById("error").innerHTML = "";
 					document.getElementById("poster").src = jsonObj.Poster;
+					var act = jsonObj.Actors.split(",");
+					document.getElementById("actors").innerHTML = "";
+					for(var i=0; i<act.length; ++i){
+						document.getElementById("actors").innerHTML+="<li>"+act[i]+"</li>";
+					}
 				}
 				else{
 					document.getElementById("title").innerHTML = "";
@@ -24,6 +29,7 @@ ser.onclick = function(){
 					document.getElementById("genre").innerHTML = "";
 					document.getElementById("error").innerHTML = jsonObj.Error;
 					document.getElementById("poster").src = "images/error.png";
+					document.getElementById("actors").innerHTML = "";
 				}
 			}
 		};
