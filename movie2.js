@@ -24,6 +24,7 @@ startInput.onclick = function(){
 		document.getElementById("nom").style.visibility = "hidden";
 		startInput.style.visibility = "hidden";
 		var arr = [];
+		var num = 0;
 		document.getElementById('compareMov').onclick = function(){
 			arr = [];
 			var bo = compareMovies(arr);
@@ -48,12 +49,12 @@ function compareMovies(arr){
 		}
 		var imd = getImdb(name,arr);
 	}
-	alert('arr is now '+arr);
+	//alert('arr is now '+arr);
 	return true;
 }
 function getImdb(name,arr){
-	alert("Inside getImdb");
-	alert("Name is "+name+"<br/>Arr is "+arr);
+	//alert("Inside getImdb");
+	//alert("Name is "+name+"<br/>Arr is "+arr);
 	var xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function(){
 			if(xhttp.readyState == 4 && xhttp.status == 200){
@@ -61,13 +62,24 @@ function getImdb(name,arr){
 				var jsonObj = JSON.parse(json);
 				if(jsonObj.Response == "True"){
 					arr.push({name:name,rati:jsonObj.imdbRating});
+					//alert('Arr is '+arr);
+					//alert('arr.length is '+arr.length+' n is '+n);
 					document.getElementById("error").innerHTML = "";
-					alert("Arr is now "+arr+"\nFor name "+name);
-					alert("arr["+name+"] is "+arr[0].rati);
+					if(arr.length == n){
+						compareIms(arr);
+						return true;
+					}
 					return true;
 				}
 				else{
-					document.getElementById("error").innerHTML = jsonObj.Error;
+					document.getElementById("error").innerHTML = name+" "+jsonObj.Error;
+					arr.push({name:name,rati:-1});
+					//alert('Arr is '+arr);
+					//alert('arr.length is '+arr.length+' n is '+n);
+					if(arr.length == n){
+						compareIms(arr);
+						return false;
+					}
 					return false;
 				}
 			}
@@ -75,5 +87,33 @@ function getImdb(name,arr){
 		var base_url = "http://www.omdbapi.com/?r=json&t=";
 		xhttp.open("GET",base_url+name,true);
 		xhttp.send();
-		alert('Arr is '+arr);
+		//
+}
+function compareIms(arr){
+	//alert('In compare Ims function');
+	
+	arr.sort(function(a,b){
+		return b.rati-a.rati;
+	});
+	var coun = 0;
+	
+	results.innerHTML = "";
+	results.innerHTML += "<h3>Results in Descending order of IMDB Rating</h3>"
+	
+	for(var i=0; i<arr.length; ++i){
+		if(arr[i].rati == -1){
+			coun++;
+			results.innerHTML+="<li>No movie named "+arr[i].name+"</li>";
+		}
+		else{
+			results.innerHTML+="<li>Movie: "+arr[i].name+"  Rating: "+arr[i].rati+"</li>";
+		}
+	}
+	results.innerHTML+="<button id='tryAgain'>Try Again?</button>";
+	document.getElementById('tryAgain').onclick = function(){
+		location.reload();
+	}
+	
+	alert("Compared "+ (arr.length - coun) +" movies out of "+arr.length);
+	return;
 }
