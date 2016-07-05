@@ -1,7 +1,11 @@
 var ser = document.getElementById("search");
 var query = document.getElementById("serText");
 ser.onclick = function(){
+	
+	//If the query is not null,get details
 	if(query.value !== ""){
+		
+		//AJAX for fetching data
 		var xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function(){
 			if(xhttp.readyState == 4 && xhttp.status == 200){
