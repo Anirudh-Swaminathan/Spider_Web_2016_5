@@ -2,20 +2,25 @@
 <html>
 <head>
 	<title>Search a specific movie</title>
+	<link rel="stylesheet" href = 'movie1.css' type = 'text/css'/>
 </head>
 <body>
+	<center>
+	<div id ="contents">
 	<input type="text" id="serText" name="serText"/>
 	<button id="search">Search</button>
 	<div id="results">
 		<p id="title"></p>
 		<p id="plot"></p>
-		<p id="rating"></p>
-		<p id="type"></p>
-		<p id="genre"></p>
+		<span id="rating"></span>
+		<span id="type"></span>
+		<span id="genre"></span>
 		<p id="error"></p>
 		<img id="poster" src = "images/ic_launcher.png"/>
 		<p id="actors"></p>
 	</div>
+	</div>
+	</center>
 	<script src="movie1.js" type='text/javascript'>
 	</script>
 </body>

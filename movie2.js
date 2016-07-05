@@ -5,9 +5,6 @@ var results = document.getElementById("results");
 startInput.onclick = function(){
 	
 	n = document.getElementById("nom").value;
-	
-	alert("n is "+n);
-	alert("typeof n is "+typeof(n));
 	if(n<=1){
 		alert('Please enter a number greater than 1');
 	}

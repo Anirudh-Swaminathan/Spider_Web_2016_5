@@ -16,7 +16,7 @@ ser.onclick = function(){
 					document.getElementById("error").innerHTML = "";
 					document.getElementById("poster").src = jsonObj.Poster;
 					var act = jsonObj.Actors.split(",");
-					document.getElementById("actors").innerHTML = "";
+					document.getElementById("actors").innerHTML = "<h4>Actors</h4>";
 					for(var i=0; i<act.length; ++i){
 						document.getElementById("actors").innerHTML+="<li>"+act[i]+"</li>";
 					}
